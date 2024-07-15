@@ -1,0 +1,88 @@
+body {
+  background-color: #FA96B2;
+  color: #8F4F82;
+  font-family: var(--base-font);
+  font-size: var(--base-font-size);
+}
+
+a {
+  color: #99F2A8;
+  text-decoration: none;
+}
+a:hover {
+  background-color: #000000;
+  color: #99F2A8;
+  text-decoration: line-through;
+}
+
+ul.socialmedia {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.list--about-me {
+  list-style-position: outside;
+  list-style-type: none;
+}
+ul.list--about-me li {
+  margin-bottom: 1rem;
+}
+ul.list--about-me li:last-child {
+  margin-bottom: 0;
+}
+ul.list--about-me li.emoji {
+  margin-right: .5rem;
+}
+ul.list--about-me li.emoji:before {
+  position: absolute;
+  left: 0;
+}
+ul.list--about-me li.emoji-wave:before {
+  content: "👋";
+}
+ul.list--about-me li.emoji-eyes:before {
+  content: "👀";
+}
+ul.list--about-me li.emoji-cat:before {
+  content: "🐈";
+}
+ul.list--about-me li.emoji-gaming:before {
+  content: "🎮";
+}
+ul.list--about-me li.emoji-education:before {
+  content: "🎓";
+}
+ul.list--about-me li.emoji-chess:before {
+  content: "♟️";
+}
+ul.list--about-me li.emoji-plant:before {
+  content: "🌱";
+}
+ul.list--about-me li.emoji-two-hearts:before {
+  content: "💞️";
+}
+ul.list--about-me li.emoji-plead:before {
+  content: "🥺";
+}
+ul.list--about-me li.emoji-travel:before {
+  content: "✈️";
+}
+ul.list--about-me li.emoji-facts:before {
+  content: "📠";
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'VT323', monospace;
+  margin: 0;
+}
+
+.signature {
+  font-family: 'Give You Glory', cursive;
+  font-size: 2rem;
+  margin: 50px 0 30px;
+}
+
+.fa-heart {
+  color: #FA023C;
+}

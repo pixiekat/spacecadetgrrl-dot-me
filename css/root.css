@@ -1,0 +1,11 @@
+:root {
+  --font-family-vt323: 'VT323', monospace;
+  --font-family-monterrat: 'Montserrat', sans-serif;
+  --font-family-give-you-glory: 'Give You Glory', cursive;
+  --font-family-monospace: var(--font-family-vt323);
+  --base-font-size: 24px;
+  --base-font: var(--font-family-monterrat);
+
+  --font-family-sans-serif: -apple-system,BlinkMacSystemFont,var(--font-family-monterrat),"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  --font-family-monospace: SFMono-Regular,Menlo,Monaco,Consolas,var(--font-family-vt323),"Liberation Mono","Courier New",monospace;
+}
