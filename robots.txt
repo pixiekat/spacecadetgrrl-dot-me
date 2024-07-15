@@ -1,0 +1,23 @@
+User-agent: usasearch  
+Crawl-delay: 2
+
+User-agent: Teoma
+Disallow: /
+
+User-agent: Gigabot
+Disallow: /
+
+User-agent: Nutch
+Disallow: 
+
+User-agent: baiduspider
+Disallow: /
+
+User-agent: naverbot
+Disallow: /
+
+User-agent: *
+Disallow: 
+Crawl-delay: 10
+
+Disallow: /admin
