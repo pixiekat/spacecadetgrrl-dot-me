@@ -16,7 +16,7 @@ use Symfony\Component\Routing\RouteCollection;
 // define root path
 define('ROOT_PATH', realpath(__DIR__ . '/../'));
 
-// Looing for .env at the root directory
+// Looking for .env at the root directory
 $dotenv = new Dotenv();
 
 // you can also load several files
