@@ -1,3 +1,50 @@
+<?php
+require_once realpath(__DIR__ . '/../vendor/autoload.php');
+
+use Barryvanveen\Lastfm\Lastfm;
+use GuzzleHttp\Client;
+use Symfony\Component\Dotenv\Dotenv;
+
+// define root path
+define('ROOT_PATH', realpath(__DIR__ . '/../'));
+
+// Looing for .env at the root directory
+$dotenv = new Dotenv();
+
+// you can also load several files
+foreach (['.env'] as $file) {
+  if (file_exists(ROOT_PATH.'/'.$file)) {
+    $dotenv->load(ROOT_PATH.'/'.$file);
+  }
+}
+if (!empty($_ENV['APP_ENV'])) {
+  $env = $_ENV['APP_ENV'];
+  switch ($env) {
+    case 'dev':
+      error_reporting(E_ALL);
+      ini_set('display_errors', 1);
+      break;
+    case 'test':
+      break;
+    case 'prod':
+      break;
+  }
+
+  foreach ([".env.{$env}", ".env.{$env}.local", ".env.{$env}.local.php"] as $file) {
+    if (file_exists(ROOT_PATH.'/'.$file)) {
+      $dotenv->load(ROOT_PATH.'/'.$file);
+    }
+  }
+}
+
+
+$tracks = [];
+if ($_ENV['LAST_FM_API_KEY']) {
+  $lastfm = new Lastfm(new Client(), $_ENV['LAST_FM_API_KEY']);
+  $tracks = $lastfm->userRecentTracks('cupcakezealot')->limit(7)->get();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,6 +68,23 @@
           <p class="subtitle">dreamer, nerdy girl, ttrpg addict, dragon wrangler</p>
           <p>i love d&d, ttrpgs, cosplaying, renn faires, and <a href="https://archiveofourown.org/tags/Laudna*s*Imogen%20Temult/works" target="_blank">imodna</a></p>
         </article>
+        <?php if (!empty($tracks)): ?>
+        <article>
+          <h1 class="title">currently listening</h1>
+          <ul class="no-bullets no-indent list--nowplaying">
+            <?php
+            foreach ($tracks as $id => $track) {
+              $timestamp = $track['date']['uts'];
+              $date = (new \DateTime())->setTimeZone(new \DateTimeZone('America/New_York'))->setTimestamp($timestamp);
+              $url = $track['url'];
+              $artist = $track['artist']['#text'];
+              $song = $track['name'];
+              print "<li><a href=\"{$url}\" target=\"_blank\">{$song}</a> by {$artist} on <small>{$date->format('m.d.y h:i a')}</small></li>";
+            }
+            ?>
+          </ul>
+        </article>
+        <?php endif; ?>
         <article>
           <h1 class="title">socials</h1>
           <p class="subtitle">find me on social media. be warned, i hate it as much as you.</p>

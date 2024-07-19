@@ -72,6 +72,17 @@ ul.list--about-me li.emoji-facts:before {
   content: "📠";
 }
 
+ul.no-bullets {
+  list-style-type: none;
+}
+ul.no-indent {
+  padding-left: 0;
+}
+ul.list--nowplaying li,
+ul.list--nowplaying li a {
+  font-size: 1rem;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: 'VT323', monospace;
   margin: 0;
