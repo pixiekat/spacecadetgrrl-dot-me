@@ -18,6 +18,8 @@
     "require": {
         "php": "^8.3",
         "barryvanveen/lastfm": "^2.0",
+        "doctrine/dbal": "^4",
+        "doctrine/orm": "^3",
         "symfony/cache": "^7.1",
         "symfony/console": "^7.1",
         "symfony/dotenv": "^7.1",
