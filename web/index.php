@@ -68,7 +68,7 @@ if (isset($_ENV['LAST_FM_API_KEY'])) {
   try {
     $lastfmApi = new Lastfm(new Client(), $_ENV['LAST_FM_API_KEY']);
     $lastfm['account'] = $lastfmApi->userInfo('cupcakezealot')->get();
-    $tracks = $lastfmApi->userRecentTracks('cupcakezealot')->limit(7)->get();
+    $tracks = $lastfmApi->userRecentTracks('cupcakezealot')->limit(8)->get();
     foreach ($tracks as $track) {
       $current = false;
       if (isset($track['date']['uts'])) {
