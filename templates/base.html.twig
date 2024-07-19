@@ -1,106 +1,3 @@
-<?php
-require_once realpath(__DIR__ . '/../vendor/autoload.php');
-
-use Barryvanveen\Lastfm\Lastfm;
-use GuzzleHttp\Client;
-use Symfony\Component\Dotenv\Dotenv;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing;
-use Symfony\Component\Routing\Matcher\UrlMatcher;
-use Symfony\Component\Routing\RequestContext;
-use Symfony\Component\Routing\Route;
-use Symfony\Component\Routing\RouteCollection;
-
-// define root path
-define('ROOT_PATH', realpath(__DIR__ . '/../'));
-
-// Looing for .env at the root directory
-$dotenv = new Dotenv();
-
-// you can also load several files
-foreach (['.env', '.env.local', '.env.local.php'] as $file) {
-  if (file_exists(ROOT_PATH.'/'.$file)) {
-    $dotenv->load(ROOT_PATH.'/'.$file);
-  }
-}
-if (!empty($_ENV['APP_ENV'])) {
-  $env = $_ENV['APP_ENV'];
-  switch ($env) {
-    case 'dev':
-      error_reporting(E_ALL);
-      ini_set('display_errors', 1);
-      break;
-    case 'test':
-      break;
-    case 'prod':
-      break;
-  }
-
-  foreach ([".env.{$env}", ".env.{$env}.local", ".env.{$env}.local.php"] as $file) {
-    if (file_exists(ROOT_PATH.'/'.$file)) {
-      $dotenv->load(ROOT_PATH.'/'.$file);
-    }
-  }
-}
-
-// get request
-$request = Request::createFromGlobals();
-
-// get request context
-$context = new RequestContext();
-$context->fromRequest($request);
-
-// load templates
-$loader = new \Twig\Loader\FilesystemLoader(ROOT_PATH . '/templates');
-$twig = new \Twig\Environment($loader, [
-  'debug' => ($_ENV['APP_DEBUG'] ?? false),
-  'cache' => ROOT_PATH . '/var/cache',
-]);
-
-$nowplaying = [];
-if (isset($_ENV['LAST_FM_API_KEY'])) {
-  $lastfm = new Lastfm(new Client(), $_ENV['LAST_FM_API_KEY']);
-  $tracks = $lastfm->userRecentTracks('cupcakezealot')->limit(7)->get();
-  foreach ($tracks as $track) {
-    $song_timestamp = $track['date']['uts'];
-    $song_date = (new \DateTime)->setTimeZone(new \DateTimeZone('America/New_York'))->setTimestamp($song_timestamp);
-    $song_url = $track['url'];
-    $nowplaying[] = [
-      'artist' => $track['artist']['#text'],
-      'song' => $track['name'],
-      'song_url' => $track['url'],
-      'date' => $song_date->format('d m y H:i a'),
-    ];
-  }
-}
-
-// add tracks as a global
-$twig->addGlobal('tracks', $nowplaying);
-
-// define routes
-$routes = new Routing\RouteCollection();
-$routes->add('homepage', new Routing\Route('/'));
-
-$url_generator = new Routing\Generator\UrlGenerator($routes, $context);
-$twig->addFunction(new \Twig\TwigFunction('path', function($url) use ($url_generator) {
-  return $url_generator->generate($url);
-}));
-
-$path = $request->getPathInfo();
-if ($routes->get($path)) {
-  ob_start();
-  extract($request->query->all(), EXTR_SKIP);
-  include sprintf(__DIR__.'/../src/pages/%s.php', $path);
-  $response = new Response(ob_get_clean(), 200);
-} else {
-  $template = $twig->render('errors\404.html.twig', ['path' => $path, 'route' => $routes->get($path)]);
-  $response = new Response($template, 404);
-}
-
-$response->send();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -122,9 +19,9 @@ $response->send();
         <article>
           <h1 class="title">hi there :)</h1>
           <p class="subtitle">dreamer, nerdy girl, ttrpg addict, dragon wrangler</p>
-          <p>i love d&d, ttrpgs, cosplaying, renn faires, and <a href="https://archiveofourown.org/tags/Laudna*s*Imogen%20Temult/works" target="_blank">imodna</a></p>
+          <p>i love d&amp;d, ttrpgs, cosplaying, renn faires, and <a href="https://archiveofourown.org/tags/Laudna*s*Imogen%20Temult/works" target="_blank">imodna</a></p>
         </article>
-        <?php echo $twig->render('sidebar\nowplaying.html.twig', ['tracks' => $nowplaying]); ?>
+        {% include "sidebar\\nowplaying.html.twig" with {'tracks': tracks } %}
         <article>
           <h1 class="title">socials</h1>
           <p class="subtitle">find me on social media. be warned, i hate it as much as you.</p>
@@ -150,23 +47,7 @@ $response->send();
         </article>
       </div>
       <div class="order-0 order-md-1 col-md-9">
-        <ul class="list--about-me">
-          <li class="emoji emoji-wave">Hi, I'm Katherine Elizabeth, or <a href="https://tech.lgbt/@pixiekat" rel="me" target="_blank">@pixiekat</a></li>
-          <li class="emoji emoji-education">I started web design in AOL Pages and Geocities in the mid nineties.</li>
-          <li class="emoji emoji-chess">I'm proficient in PHP, Drupal (5+), Symfony, and Rails</li>
-          <li class="emoji emoji-plant">I'm currently learning Flutter, React, Rust, Dart, Web Extension Development, Chrome Development, and Rails</li>
-          <li class="emoji emoji-two-hearts">
-            I love <a href="https://codeberg.org/teaserbot-labs/delightful-humane-design" target="_blank">ethnical tech</a>, <a href="https://www.a11yproject.com/" target="_blank">A11y</a> inspired designs, <a href="https://www.codereliant.io/failing-with-dignity/" target="_blank">graceful degradation</a>, and UX design. I support open web standards and the not for profit internet. My first computer was a <a href="https://www.vintagecomputing.com/index.php/archives/3073/retro-scan-the-tandy-sensation" target="_blank">Tandy Sensation</a>, I made my first website using <a href="https://mason.gmu.edu/~montecin/netcompose.html" target="_blank">Netscape Composer</a>, <a href="https://www.mozilla.org/" target="_blank">Mozilla</a> Firefox and <a href="https://www.zdnet.com/home-and-office/networking/the-beginning-of-the-peoples-web-20-years-of-netscape/" target="_blank">Netscape</a> supporter. I work in healthcare and love interacting and building with FHIR and rxNorm.
-          </li>
-          <li class="emoji emoji-plead">Would love to collaborate on Rails, Drupal, Symfony, or Flutter projects</li>
-          <li class="emoji emoji-eyes">I love steampunk, cosplay, sewing, reading, and theatre tech</li>
-          <li class="emoji emoji-cat">I have two cats, Callie the Calico and Winnie the Tortoiseshell.</li>
-          <li class="emoji emoji-gaming">Obsessed with JRPGs. I have been playing games since the late 80s. My first console system was the Master System. I also love any Sierra Online or LucasArts game. Point and click adventures are my everything. I love anything Final Fantasy; I have most recently completed Final Fantasy VII Rebirth and Final Fantasy XVI</li>
-          <li class="emoji emoji-facts">I think webrings and web cliques should come back in vogue and that web 1.0 was infinitely better than web 2.0+. I also think there should be a native facts emoji.</li>
-          <li class="emoji emoji-travel">I love travelling and could spend hours on street view. I'm fascinated with out of the way and unknown places. I most recently visited Scotland for two weeks and I loved it. I want to live in Japan, Shetland, or Norway someday</li>
-        </ul>
-
-        <p class="signature">xoxo katy <i class="fas fa-heart"></i></p>
+        {% block main_content %}{% endblock %}
       </div>
     </div>
     <footer class="container-fluid my-3">
