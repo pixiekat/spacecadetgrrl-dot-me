@@ -5,6 +5,12 @@ use Barryvanveen\Lastfm\Lastfm;
 use GuzzleHttp\Client;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing;
+use Symfony\Component\Routing\Matcher\UrlMatcher;
+use Symfony\Component\Routing\RequestContext;
+use Symfony\Component\Routing\Route;
+use Symfony\Component\Routing\RouteCollection;
 
 // define root path
 define('ROOT_PATH', realpath(__DIR__ . '/../'));
@@ -40,6 +46,11 @@ if (!empty($_ENV['APP_ENV'])) {
 
 // get request
 $request = Request::createFromGlobals();
+
+// get request context
+$context = new RequestContext();
+$context->fromRequest($request);
+
 // load templates
 $loader = new \Twig\Loader\FilesystemLoader(ROOT_PATH . '/templates');
 $twig = new \Twig\Environment($loader, [
@@ -63,6 +74,27 @@ if (isset($_ENV['LAST_FM_API_KEY'])) {
     ];
   }
 }
+// define routes
+$routes = new Routing\RouteCollection();
+$routes->add('homepage', new Routing\Route('/'));
+
+$url_generator = new Routing\Generator\UrlGenerator($routes, $context);
+$twig->addFunction(new \Twig\TwigFunction('path', function($url) use ($url_generator) {
+  return $url_generator->generate($url);
+}));
+
+$path = $request->getPathInfo();
+if ($routes->get($path)) {
+  ob_start();
+  extract($request->query->all(), EXTR_SKIP);
+  include sprintf(__DIR__.'/../src/pages/%s.php', $path);
+  $response = new Response(ob_get_clean(), 200);
+} else {
+  $template = $twig->render('errors\404.html.twig', ['path' => $path, 'route' => $routes->get($path)]);
+  $response = new Response($template, 404);
+}
+
+$response->send();
 ?>
 
 <!DOCTYPE html>

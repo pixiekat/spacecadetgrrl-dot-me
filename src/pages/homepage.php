@@ -1,0 +1,1 @@
+<?php echo $twig->render('pages\homepage.html.twig', []); ?>
