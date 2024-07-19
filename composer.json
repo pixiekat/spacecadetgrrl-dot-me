@@ -1,0 +1,22 @@
+{
+    "name": "katie/spacecadetgrrl-dot-me",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Katie\\SpacecadetgrrlDotMe\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Katie Elizabeth",
+            "email": "32232155+pixiekat@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "symfony/dotenv": "^7.1",
+        "barryvanveen/lastfm": "^2.0"
+    },
+    "require-dev": {
+        "kint-php/kint": "^5.1"
+    }
+}
