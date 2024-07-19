@@ -39,7 +39,7 @@ if (!empty($_ENV['APP_ENV'])) {
 
 
 $tracks = [];
-if ($_ENV['LAST_FM_API_KEY']) {
+if (isset($_ENV['LAST_FM_API_KEY'])) {
   $lastfm = new Lastfm(new Client(), $_ENV['LAST_FM_API_KEY']);
   $tracks = $lastfm->userRecentTracks('cupcakezealot')->limit(7)->get();
 }
