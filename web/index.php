@@ -4,6 +4,7 @@ require_once realpath(__DIR__ . '/../vendor/autoload.php');
 use Barryvanveen\Lastfm\Lastfm;
 use GuzzleHttp\Client;
 use Symfony\Component\Dotenv\Dotenv;
+use Symfony\Component\HttpFoundation\Request;
 
 // define root path
 define('ROOT_PATH', realpath(__DIR__ . '/../'));
@@ -37,6 +38,8 @@ if (!empty($_ENV['APP_ENV'])) {
   }
 }
 
+// get request
+$request = Request::createFromGlobals();
 // load templates
 $loader = new \Twig\Loader\FilesystemLoader(ROOT_PATH . '/templates');
 $twig = new \Twig\Environment($loader, [
