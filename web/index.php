@@ -12,7 +12,7 @@ define('ROOT_PATH', realpath(__DIR__ . '/../'));
 $dotenv = new Dotenv();
 
 // you can also load several files
-foreach (['.env'] as $file) {
+foreach (['.env', '.env.local', '.env.local.php'] as $file) {
   if (file_exists(ROOT_PATH.'/'.$file)) {
     $dotenv->load(ROOT_PATH.'/'.$file);
   }
