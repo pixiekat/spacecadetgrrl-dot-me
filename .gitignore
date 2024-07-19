@@ -1,3 +1,4 @@
+.env*
+!.env.example
 /vendor/
-/*.local*
 /var
