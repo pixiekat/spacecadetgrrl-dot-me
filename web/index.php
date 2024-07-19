@@ -63,7 +63,12 @@ if (isset($_ENV['LAST_FM_API_KEY'])) {
   $lastfm = new Lastfm(new Client(), $_ENV['LAST_FM_API_KEY']);
   $tracks = $lastfm->userRecentTracks('cupcakezealot')->limit(7)->get();
   foreach ($tracks as $track) {
-    $song_timestamp = $track['date']['uts'];
+    if (isset($track['date']['uts'])) {
+      $song_timestamp = $track['date']['uts'];
+    }
+    else {
+      $song_timestamp = time();
+    }
     $song_date = (new \DateTime)->setTimeZone(new \DateTimeZone('America/New_York'))->setTimestamp($song_timestamp);
     $song_url = $track['url'];
     $nowplaying[] = [
