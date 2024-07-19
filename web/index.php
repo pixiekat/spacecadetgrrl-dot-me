@@ -41,7 +41,7 @@ if (!empty($_ENV['APP_ENV'])) {
 $loader = new \Twig\Loader\FilesystemLoader(ROOT_PATH . '/templates');
 $twig = new \Twig\Environment($loader, [
   'debug' => ($_ENV['APP_DEBUG'] ?? false),
-  'cache' => ROOT_PATH . 'var/cache',
+  'cache' => ROOT_PATH . '/var/cache',
 ]);
 
 $nowplaying = [];
