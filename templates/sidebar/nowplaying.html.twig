@@ -14,7 +14,16 @@
     <ul class="no-bullets no-indent list--nowplaying">
       {% for track in lastfm.lastplayed %}
         {% if track.song != lastfm.current_track.song %}
-          <li><a href="{{ track.song_url }}" target="_blank">{{ track.song }}</a> by {{ track.artist }} on <small>{{ track.date }}</small></li>
+          <li>
+            <div class="d-flex flex-column">
+              <div class="lastplayed--title">
+                <a href="{{ track.song_url }}" target="_blank">{{ track.song }}</a> by {{ track.artist }}
+              </div>
+              <div class="lastplayed--meta">
+                at <small>{{ track.date }}</small>
+              </div>
+            </div>
+          </li>
         {% endif %}
       {% endfor %}
     </ul>
