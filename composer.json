@@ -18,6 +18,7 @@
     "require": {
         "php": "^8.3",
         "barryvanveen/lastfm": "^2.0",
+        "symfony/cache": "^7.1",
         "symfony/dotenv": "^7.1",
         "symfony/http-foundation": "^7.1",
         "symfony/routing": "^7.1",
