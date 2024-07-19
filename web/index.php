@@ -63,31 +63,44 @@ $twig = new \Twig\Environment($loader, [
   'cache' => ROOT_PATH . '/var/cache',
 ]);
 
-$nowplaying = [];
+$lastfm = ['current_track' => null, 'lastplayed' => []];
 if (isset($_ENV['LAST_FM_API_KEY'])) {
-  $lastfm = new Lastfm(new Client(), $_ENV['LAST_FM_API_KEY']);
-  $tracks = $lastfm->userRecentTracks('cupcakezealot')->limit(7)->get();
+  $lastfmApi = new Lastfm(new Client(), $_ENV['LAST_FM_API_KEY']);
+  $lastfm['account'] = $lastfmApi->userInfo('cupcakezealot')->get();
+  $tracks = $lastfmApi->userRecentTracks('cupcakezealot')->limit(7)->get();
   foreach ($tracks as $track) {
+    $current = false;
     if (isset($track['date']['uts'])) {
       $song_timestamp = $track['date']['uts'];
     }
     else {
+      $current = true;
       $song_timestamp = time();
     }
     $song_date = (new \DateTime)->setTimeZone(new \DateTimeZone('America/New_York'))->setTimestamp($song_timestamp);
     $song_url = $track['url'];
-    $nowplaying[] = [
-      'artist' => $track['artist']['#text'],
-      'song' => $track['name'],
-      'song_url' => $track['url'],
-      'date' => $song_date->format('d m y H:i a'),
-    ];
+    if ($current) {
+      $lastfm['current_track'] = [
+        'artist' => $track['artist']['#text'],
+        'song' => $track['name'],
+        'song_url' => $song_url,
+        'date' => $song_date->format('d m y H:i a'),
+      ];
+    }
+    else {
+      $lastfm['lastplayed'][] = [
+        'artist' => $track['artist']['#text'],
+        'song' => $track['name'],
+        'song_url' => $song_url,
+        'date' => $song_date->format('d m y H:i a'),
+      ];
+    }
   }
 }
 
 // add tracks as a global
-$twig->addGlobal('tracks', $nowplaying);
 $twig->addGlobal('app', $app);
+$twig->addGlobal('lastfm', $lastfm);
 
 // define routes
 $routes = new Routing\RouteCollection();
