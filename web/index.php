@@ -19,6 +19,7 @@ define('ROOT_PATH', realpath(__DIR__ . '/../'));
 $dotenv = new Dotenv();
 
 // you can also load several files
+$app = [];
 foreach (['.env', '.env.local', '.env.local.php'] as $file) {
   if (file_exists(ROOT_PATH.'/'.$file)) {
     $dotenv->load(ROOT_PATH.'/'.$file);
@@ -41,6 +42,10 @@ if (!empty($_ENV['APP_ENV'])) {
     if (file_exists(ROOT_PATH.'/'.$file)) {
       $dotenv->load(ROOT_PATH.'/'.$file);
     }
+  }
+  $app['env'] = $_ENV['APP_ENV'];
+  if (isset($_ENV['APP_DEBUG'])) {
+    $app['debug'] = $_ENV['APP_DEBUG'];
   }
 }
 
@@ -82,6 +87,7 @@ if (isset($_ENV['LAST_FM_API_KEY'])) {
 
 // add tracks as a global
 $twig->addGlobal('tracks', $nowplaying);
+$twig->addGlobal('app', $app);
 
 // define routes
 $routes = new Routing\RouteCollection();
