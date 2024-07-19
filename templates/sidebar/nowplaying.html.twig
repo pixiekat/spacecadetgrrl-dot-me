@@ -18,5 +18,9 @@
         {% endif %}
       {% endfor %}
     </ul>
+
+    {% if lastfm.account is not empty %}
+      <p><a href="{{ lastfm.account.url }}" target="_blank" rel="me"><i class="fa-brands fa-lastfm"></i> {{ lastfm.account.name }}</a></p>
+    {% endif %}
   </article>
 {% endif %}
