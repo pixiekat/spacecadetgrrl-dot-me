@@ -85,24 +85,29 @@ $twig->addGlobal('tracks', $nowplaying);
 
 // define routes
 $routes = new Routing\RouteCollection();
-$routes->add('homepage', new Routing\Route('/'));
+$routes->add('homepage', new Routing\Route('/', ['_controller' => 'HomepageController', 'method' => 'index']));
 
 $url_generator = new Routing\Generator\UrlGenerator($routes, $context);
 $twig->addFunction(new \Twig\TwigFunction('path', function($url) use ($url_generator) {
   return $url_generator->generate($url);
 }));
 
-$path = $request->getPathInfo();
-if ($routes->get($path)) {
+
+$matcher = new Routing\Matcher\UrlMatcher($routes, $context);
+
+try {
+  $pathInfo = $request->getPathInfo();
+  extract($matcher->match($request->getPathInfo()), EXTR_SKIP);
   ob_start();
-  extract($request->query->all(), EXTR_SKIP);
-  include sprintf(__DIR__.'/../src/pages/%s.php', $path);
+  include sprintf(__DIR__.'/../src/pages/%s.php', $_route);
   $response = new Response(ob_get_clean(), 200);
-} else {
-  $template = $twig->render('errors\404.html.twig', ['path' => $path, 'route' => $routes->get($path)]);
+} catch (Routing\Exception\ResourceNotFoundException $exception) {
+  $template = $twig->render('errors\404.html.twig', ['path' => $request->getPathInfo()]);
+  $response = new Response($template, 404);
+} catch (Exception $exception) {
+  $template = $twig->render('errors\500.html.twig', ['path' => $request->getPathInfo()]);
   $response = new Response($template, 404);
 }
-
 $response->send();
 ?>
 
