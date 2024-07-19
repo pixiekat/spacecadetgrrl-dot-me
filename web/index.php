@@ -3,6 +3,7 @@ require_once realpath(__DIR__ . '/../vendor/autoload.php');
 
 use Barryvanveen\Lastfm\Lastfm;
 use GuzzleHttp\Client;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -49,6 +50,8 @@ if (!empty($_ENV['APP_ENV'])) {
   }
 }
 
+// init our cache
+$app_cache = new FilesystemAdapter($namespace ='app_cache', $default_lifetime = 3600, $directory = ROOT_PATH . "/var/cache/{$app['env']}");
 // get request
 $request = Request::createFromGlobals();
 
