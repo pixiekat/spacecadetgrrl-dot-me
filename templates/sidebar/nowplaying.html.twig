@@ -1,0 +1,12 @@
+<article>
+  <h1 class="title">currently listening</h1>
+  {% if tracks is not empty %}
+    <ul class="no-bullets no-indent list--nowplaying">
+      {% for track in tracks %}
+        <li><a href="{{ track.song_url }}" target="_blank">{{ track.song }}</a> by {{ track.artist }} on <small>{{ track.date }}</small></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>{{ 'Nothing is currently playing. :(' }}</p>
+  {% endif %}
+</article>

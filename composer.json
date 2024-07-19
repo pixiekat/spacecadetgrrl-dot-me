@@ -13,8 +13,10 @@
         }
     ],
     "require": {
+        "php": "^8.3",
         "symfony/dotenv": "^7.1",
-        "barryvanveen/lastfm": "^2.0"
+        "barryvanveen/lastfm": "^2.0",
+        "twig/twig": "^3.10"
     },
     "require-dev": {
         "kint-php/kint": "^5.1"

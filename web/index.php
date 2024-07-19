@@ -37,6 +37,12 @@ if (!empty($_ENV['APP_ENV'])) {
   }
 }
 
+// load templates
+$loader = new \Twig\Loader\FilesystemLoader(ROOT_PATH . '/templates');
+$twig = new \Twig\Environment($loader, [
+  'debug' => ($_ENV['APP_DEBUG'] ?? false),
+  'cache' => ROOT_PATH . 'var/cache',
+]);
 
 $tracks = [];
 if (isset($_ENV['LAST_FM_API_KEY'])) {
@@ -68,23 +74,7 @@ if (isset($_ENV['LAST_FM_API_KEY'])) {
           <p class="subtitle">dreamer, nerdy girl, ttrpg addict, dragon wrangler</p>
           <p>i love d&d, ttrpgs, cosplaying, renn faires, and <a href="https://archiveofourown.org/tags/Laudna*s*Imogen%20Temult/works" target="_blank">imodna</a></p>
         </article>
-        <?php if (!empty($tracks)): ?>
-        <article>
-          <h1 class="title">currently listening</h1>
-          <ul class="no-bullets no-indent list--nowplaying">
-            <?php
-            foreach ($tracks as $id => $track) {
-              $timestamp = $track['date']['uts'];
-              $date = (new \DateTime())->setTimeZone(new \DateTimeZone('America/New_York'))->setTimestamp($timestamp);
-              $url = $track['url'];
-              $artist = $track['artist']['#text'];
-              $song = $track['name'];
-              print "<li><a href=\"{$url}\" target=\"_blank\">{$song}</a> by {$artist} on <small>{$date->format('m.d.y h:i a')}</small></li>";
-            }
-            ?>
-          </ul>
-        </article>
-        <?php endif; ?>
+        <?php echo $twig->render('sidebar\nowplaying.html.twig', ['tracks' => $nowplaying]); ?>
         <article>
           <h1 class="title">socials</h1>
           <p class="subtitle">find me on social media. be warned, i hate it as much as you.</p>
