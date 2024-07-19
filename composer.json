@@ -12,6 +12,9 @@
             "email": "32232155+pixiekat@users.noreply.github.com"
         }
     ],
+    "config": {
+        "sort-packages": true
+    },
     "require": {
         "php": "^8.3",
         "symfony/dotenv": "^7.1",
