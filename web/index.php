@@ -119,7 +119,7 @@ if ($request->server->has('LAST_FM_API_KEY')) {
           'artist' => $track['artist']['#text'],
           'song' => $track['name'],
           'song_url' => $song_url,
-          'date' => $song_date->format('d m y H:i'),
+          'date' => $song_date->format('d F y H:i'),
         ];
       }
       else {
@@ -127,7 +127,7 @@ if ($request->server->has('LAST_FM_API_KEY')) {
           'artist' => $track['artist']['#text'],
           'song' => $track['name'],
           'song_url' => $song_url,
-          'date' => $song_date->format('d m y H:i'),
+          'date' => $song_date->format('d F y H:i'),
         ];
       }
     }
