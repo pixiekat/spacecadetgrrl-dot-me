@@ -4,6 +4,7 @@ use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\Transport;
 use Symfony\Component\Mime\Email;
 
+/*
 $from = $app->getCurrentRequest()->server->get('MAILER_FROM');
 $email = (new Email())
     ->from($from)
@@ -21,4 +22,5 @@ try {
 }
 catch (\Exception $e) {
 }
+*/
 echo $app->getTwig()->render('pages\homepage.html.twig', []);
