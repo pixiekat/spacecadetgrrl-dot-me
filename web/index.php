@@ -3,7 +3,8 @@ require_once realpath(__DIR__ . '/../vendor/autoload.php');
 
 use Barryvanveen\Lastfm\Lastfm;
 use GuzzleHttp\Client;
-use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Symfony\Component\Cache\Adapter\FilesystemTagAwareAdapter;
+use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,7 +52,9 @@ if (!empty($_ENV['APP_ENV'])) {
 }
 
 // init our cache
-$app_cache = new FilesystemAdapter($namespace ='app_cache', $default_lifetime = 3600, $directory = ROOT_PATH . "/var/cache/{$app['env']}");
+$app_cache = new FilesystemTagAwareAdapter($namespace ='app_cache', $default_lifetime = 3600, $directory = ROOT_PATH . "/var/cache/{$app['env']}");
+$cache_beta = 1.0;
+
 // get request
 $request = Request::createFromGlobals();
 
@@ -67,11 +70,39 @@ $twig = new \Twig\Environment($loader, [
 ]);
 
 $lastfm = ['current_track' => null, 'lastplayed' => []];
-if (isset($_ENV['LAST_FM_API_KEY'])) {
+if ($request->server->has('LAST_FM_API_KEY')) {
   try {
-    $lastfmApi = new Lastfm(new Client(), $_ENV['LAST_FM_API_KEY']);
-    $lastfm['account'] = $lastfmApi->userInfo('cupcakezealot')->get();
-    $tracks = $lastfmApi->userRecentTracks('cupcakezealot')->limit(8)->get();
+    $api_key = $request->server->get('LAST_FM_API_KEY');
+    if ($request->server->has('LAST_FM_USER')) {
+      $lastfmUsername = $request->server->get('LAST_FM_USER');
+    }
+    $lastfmApi = new Lastfm(new Client(), $api_key);
+    $lastfm = $app_cache->get('lastfm__account', function (ItemInterface $item) use ($lastfm, $lastfmApi, $lastfmUsername): ?array {
+      $expiresAt = (new \DateTime())->setTimeZone(new \DateTimeZone('America/New_York'))->setTimestamp(strtotime('+1 day'));
+        $item->tag(['lastfm', 'api']);
+
+        try {
+          $lastfm['account'] = $lastfmApi->userInfo($lastfmUsername)->get();
+        }
+        catch (Barryvanveen\Lastfm\Exceptions\ResponseException $exception) {
+          $item->expiresAt(time());
+        }
+        return $lastfm;
+    }, $cache_beta);
+    
+    $tracks = $app_cache->get('lastfm__tracks', function (ItemInterface $item) use ($lastfmApi, $lastfmUsername): ?array {
+      $expiresAt = (new \DateTime())->setTimeZone(new \DateTimeZone('America/New_York'))->setTimestamp(strtotime('+30 seconds'));
+      $item->expiresAt($expiresAt);
+      $item->tag(['lastfm', 'api']);
+      try {
+        $tracks = $lastfmApi->userRecentTracks('cupcakezealot')->limit(8)->get();
+      }
+      catch (Barryvanveen\Lastfm\Exceptions\ResponseException $exception) {
+        $item->expiresAt(time());
+      }
+      return $tracks;
+    }, $cache_beta);
+
     foreach ($tracks as $track) {
       $current = false;
       if (isset($track['date']['uts'])) {
