@@ -107,10 +107,10 @@ try {
   include sprintf($rootPath.'/src/pages/%s.php', $_route);
   $response = new Response(ob_get_clean(), 200);
 } catch (ResourceNotFoundException $exception) {
-  $template = $twig->render('errors\404.html.twig', ['path' => $request->getPathInfo()]);
+  $template = $app->getTwig()->render('errors\404.html.twig', ['path' => $request->getPathInfo()]);
   $response = new Response($template, 404);
 } catch (\Exception $exception) {
-  $template = $twig->render('errors\500.html.twig', ['path' => $request->getPathInfo(), 'message' => $exception->getMessage()]);
+  $template = $app->getTwig()->render('errors\500.html.twig', ['path' => $request->getPathInfo(), 'message' => $exception->getMessage()]);
   $response = new Response($template, 404);
 }
 $response->send();
