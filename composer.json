@@ -3,7 +3,7 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "Katie\\SpacecadetgrrlDotMe\\": "src/"
+            "App\\": "src/"
         }
     },
     "authors": [
@@ -15,20 +15,21 @@
     "config": {
         "sort-packages": true
     },
+    "repositories": {
+        "pixiekat/pixiekat_bootstrap": {
+            "type": "vcs",
+            "url": "git@github.com:pixiekat/pixiekat_bootstrap.git"
+        }
+    },
     "require": {
         "php": "^8.3",
         "barryvanveen/lastfm": "^2.0",
-        "doctrine/dbal": "^4",
-        "doctrine/orm": "^3",
-        "symfony/cache": "^7.1",
-        "symfony/console": "^7.1",
-        "symfony/dotenv": "^7.1",
-        "symfony/http-foundation": "^7.1",
-        "symfony/routing": "^7.1",
-        "symfony/twig-bridge": "^7.1",
-        "twig/twig": "^3.10"
+        "maximebf/debugbar": "^1.22",
+        "pixiekat/pixiekat_bootstrap": "dev-main",
+        "symfony/console": "^7.1"
     },
     "require-dev": {
-        "kint-php/kint": "^5.1"
+        "kint-php/kint": "^5.1",
+        "symfony/google-mailer": "^7.1"
     }
 }
