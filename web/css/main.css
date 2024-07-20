@@ -105,3 +105,22 @@ h1, h2, h3, h4, h5, h6 {
 .fa-heart {
   color: #FA023C;
 }
+
+.flex-gap-10 {
+  gap: 10px;
+}
+.flex-gap-md-10 {
+  @media (min-width: 576px) {
+    gap: 10px;
+  }
+}
+
+@media (min-width: 770px) {
+  .madewith--tools span:not(:last-child)::after {
+    content: ",";
+    margin-right: 10px;
+  }
+}
+.madewith--tools span:last-child::after {
+  content: ".";
+}
