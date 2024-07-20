@@ -24,7 +24,6 @@
     "require": {
         "php": "^8.3",
         "barryvanveen/lastfm": "^2.0",
-        "maximebf/debugbar": "^1.22",
         "pixiekat/pixiekat_bootstrap": "dev-main",
         "symfony/console": "^7.1"
     },

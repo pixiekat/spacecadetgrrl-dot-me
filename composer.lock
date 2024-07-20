@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e96a25f55dee0aabb55d0138904d43ae",
+    "content-hash": "fc011f72808605fefd49b7922f00ed18",
     "packages": [
         {
             "name": "barryvanveen/lastfm",
@@ -1380,6 +1380,56 @@
                 }
             ],
             "time": "2024-07-18T11:15:46+00:00"
+        },
+        {
+            "name": "pixiekat/pixiekat_bootstrap",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pixiekat/pixiekat_bootstrap.git",
+                "reference": "5d38aea4c95ed8a6a2d2df60592a6e28c772c421"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pixiekat/pixiekat_bootstrap/zipball/5d38aea4c95ed8a6a2d2df60592a6e28c772c421",
+                "reference": "5d38aea4c95ed8a6a2d2df60592a6e28c772c421",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/dbal": "^4",
+                "doctrine/migrations": "^3.8",
+                "doctrine/orm": "^3.2",
+                "php": "^8.3",
+                "symfony/cache": "^7.1",
+                "symfony/dotenv": "^7.1",
+                "symfony/http-foundation": "^7.1",
+                "symfony/mailer": "^7.1",
+                "symfony/routing": "^7.1",
+                "symfony/twig-bridge": "^7.1",
+                "symfony/yaml": "^7.1",
+                "twig/twig": "^3.10"
+            },
+            "require-dev": {
+                "symfony/google-mailer": "^7.1"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PixiekatBootstrap\\": "src/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Katie Elizabeth",
+                    "email": "coolerthanyrmom@supportcrime.net"
+                }
+            ],
+            "support": {
+                "source": "https://github.com/pixiekat/pixiekat_bootstrap/tree/main",
+                "issues": "https://github.com/pixiekat/pixiekat_bootstrap/issues"
+            },
+            "time": "2024-07-20T05:23:16+00:00"
         },
         {
             "name": "psr/cache",
@@ -3385,6 +3435,68 @@
                 }
             ],
             "time": "2024-04-18T09:32:20+00:00"
+        },
+        {
+            "name": "symfony/stopwatch",
+            "version": "v7.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/stopwatch.git",
+                "reference": "5b75bb1ac2ba1b9d05c47fc4b3046a625377d23d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/stopwatch/zipball/5b75bb1ac2ba1b9d05c47fc4b3046a625377d23d",
+                "reference": "5b75bb1ac2ba1b9d05c47fc4b3046a625377d23d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2",
+                "symfony/service-contracts": "^2.5|^3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Stopwatch\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Provides a way to profile code",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/stopwatch/tree/v7.1.1"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2024-05-31T14:57:53+00:00"
         },
         {
             "name": "symfony/string",
