@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="canonical" href="https://spacecadetgrrl.me" />
+  <link rel="canonical" href="{{ app.request.server.get('REQUEST_SCHEME') ~ '://' ~ app.request.server.get('HTTP_HOST') ~ app.request.server.get('REQUEST_URI') }}" />
   <meta name="description" content="katy's personal and professional website. ♡">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <link href="https://fonts.googleapis.com/css?family=VT323|Montserrat|Give+You+Glory" rel="stylesheet">

@@ -138,7 +138,11 @@ if ($request->server->has('LAST_FM_API_KEY')) {
 }
 
 // add tracks as a global
-$twig->addGlobal('app', $app);
+$twig->addGlobal('app', [
+  'env' => $app['env'],
+  'debug' => $app['debug'],
+  'request' => $request,
+]);
 $twig->addGlobal('lastfm', $lastfm);
 
 // define routes
