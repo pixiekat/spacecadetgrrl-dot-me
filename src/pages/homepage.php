@@ -4,9 +4,9 @@ use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\Transport;
 use Symfony\Component\Mime\Email;
 
-/*
+$from = $app->getCurrentRequest()->server->get('MAILER_FROM');
 $email = (new Email())
-    ->from('katie@pixiekitten.net')
+    ->from($from)
     ->to('calamitousgrace@gmail.com')
     ->subject('Your Subject')
     ->text('Hello, this is the plain text content.')
@@ -16,8 +16,9 @@ $email = (new Email())
 // $email->attachFromPath('/path/to/attachment.pdf');
 
 // Send the email
-$transport = Transport::fromDsn($request->server->get('MAILER_DSN'));
-$mailer = new Mailer($transport);
-$mailer->send($email);*/
-
+try {
+  $app->getMailer()->send($email);
+}
+catch (\Exception $e) {
+}
 echo $app->getTwig()->render('pages\homepage.html.twig', []);
