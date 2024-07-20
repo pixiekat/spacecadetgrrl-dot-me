@@ -1,0 +1,4 @@
+# config/doctrine.yaml
+doctrine:
+  dbal:
+    url: '%env(DATABASE_URL)%'
