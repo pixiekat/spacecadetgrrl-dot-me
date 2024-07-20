@@ -25,6 +25,7 @@
         "php": "^8.3",
         "barryvanveen/lastfm": "^2.0",
         "pixiekat/pixiekat_bootstrap": "dev-main",
+        "symfony/amazon-mailer": "^7.1",
         "symfony/console": "^7.1"
     },
     "require-dev": {
