@@ -83,6 +83,10 @@ ul.list--nowplaying li a {
   font-size: 1rem;
 }
 
+ul.list--about-me li:not(:last-child) {
+  margin-bottom: .1rem;
+}
+
 ul.list--nowplaying li:not(:last-child) {
   margin-bottom: .5rem;
 }

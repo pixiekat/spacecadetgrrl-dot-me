@@ -19,6 +19,7 @@ use Symfony\Component\Routing\RouteCollection;
 // define our routes
 $routes = new Routing\RouteCollection();
 $routes->add('homepage', new Routing\Route('/', ['_controller' => 'HomepageController', 'method' => 'index']));
+$routes->add('domain-info', new Routing\Route('/site.html', ['_controller' => 'DomainInfoController', 'method' => 'index']));
 $app = (new Bootstrap())->createApplication($routes);
 $app_cache = $app->getCache('app');
 $lastfm = ['current_track' => null, 'lastplayed' => []];
