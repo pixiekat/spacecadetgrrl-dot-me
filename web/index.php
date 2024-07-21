@@ -11,6 +11,7 @@ use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing;
+use Symfony\Component\Routing\Exception;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Route;
@@ -107,11 +108,11 @@ try {
   ob_start();
   include sprintf($rootPath.'/src/pages/%s.php', $_route);
   $response = new Response(ob_get_clean(), 200);
-} catch (ResourceNotFoundException $exception) {
+} catch (Exception\ResourceNotFoundException $exception) {
   $template = $app->getTwig()->render('errors\404.html.twig', ['path' => $request->getPathInfo()]);
   $response = new Response($template, 404);
 } catch (\Exception $exception) {
   $template = $app->getTwig()->render('errors\500.html.twig', ['path' => $request->getPathInfo(), 'message' => $exception->getMessage()]);
-  $response = new Response($template, 404);
+  $response = new Response($template, 500);
 }
 $response->send();
