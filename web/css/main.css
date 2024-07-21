@@ -9,7 +9,7 @@ a {
   color: #99F2A8;
   text-decoration: none;
 }
-a:hover {
+a:hover:not(.no-hover) {
   background-color: #000000;
   color: #99F2A8;
   text-decoration: line-through;
