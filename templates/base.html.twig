@@ -1,6 +1,30 @@
 {% set page_title = block('page_title') ?? null %}
 {% set base_domain = app.request.server.get('REQUEST_SCHEME') ~ '://' ~ app.request.server.get('HTTP_HOST') %}
 {% set current_page = base_domain ~ app.request.server.get('REQUEST_URI') %}
+<!--
+
+s p a c e c a d e t g r r l ♡ m e
+enjoy this sleepy kitty
+she likes head scratches,
+treats, and belly rubs
+
+x o x o katy ♡
+
+           __..--''``---....___   _..._    __
+ /// //_.-'    .-/";  `        ``<._  ``.''_ `. / // /
+///_.-' _..--.'_    \                    `( ) ) // //
+/ (_..-' // (< _     ;_..__               ; `' / ///
+ / // // //  `-._,_)' // / ``--...____..-' /// / //
+ 
+ 
+ b y e e e e e e
+ enjoy the rest of the site
+
+ xo
+ 
+
+ 
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +42,10 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/root.css">
   <link rel="stylesheet" href="/css/main.css">
-  <title>♡ s p a c e c a d e t g r r l ♡{% if page_title is not empty %} -//- {{ page_title }}{% endif %}</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <title>♡ s p a c e c a d e t g r r l ♡{% if page_title is not empty %} =^._.^= ∫ {{ page_title }}{% endif %}</title>
 </head>
 <body>
   <div class="container">
@@ -46,6 +73,7 @@
             <li><a href="https://www.tumblr.com/devilishlyseraphic" target="_blank" rel="me"><i class="fa-brands fa-tumblr"></i> tumblr</a></li>
             <li><a href="https://open.spotify.com/user/6tio4kp0gx5q05o1vxxevnkv1" target="_blank" rel="me"><i class="fa-brands fa-spotify"></i> spotify</a></li>
             <li><a href="https://music.youtube.com/channel/UCBYckfzpn20NX-dPaQA26XQ" target="_blank" rel="me"><i class="fa-brands fa-youtube"></i> youtube music</a></li>
+            <li><a href="https://www.goodreads.com/user/show/133391434-katherine" target="_blank" rel="me"><i class="fa-brands fa-goodreads"></i> goodreads</a></li>
             <li><a href="https://github.com/pixiekat" target="_blank" rel="me"><i class="fa-brands fa-github"></i> github</a></li>
             <li><a href="https://www.instagram.com/cupcakezealot/" target="_blank" rel="me"><i class="fa-brands fa-instagram"></i> instagram</a></li>
             <li><a href="https://www.linkedin.com/in/katiewritescode/" target="_blank" rel="me"><i class="fa-brands fa-linkedin"></i> linkedin</a></li>
