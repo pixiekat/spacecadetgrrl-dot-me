@@ -1,11 +1,18 @@
 {% set page_title = block('page_title') ?? null %}
+{% set base_domain = app.request.server.get('REQUEST_SCHEME') ~ '://' ~ app.request.server.get('HTTP_HOST') %}
+{% set current_page = base_domain ~ app.request.server.get('REQUEST_URI') %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="canonical" href="{{ app.request.server.get('REQUEST_SCHEME') ~ '://' ~ app.request.server.get('HTTP_HOST') ~ app.request.server.get('REQUEST_URI') }}" />
+  <link rel="canonical" href="{{ current_page }}" />
   <meta name="description" content="katy's personal and professional website. ♡">
+  <meta property="og:url" content="{{ base_domain }}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="♡ s p a c e c a d e t g r r l ♡">
+  <meta property="og:description" content="katy's personal and professional website. ♡">
+  <meta property="og:image" content="">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <link href="https://fonts.googleapis.com/css?family=VT323|Montserrat|Give+You+Glory" rel="stylesheet">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
