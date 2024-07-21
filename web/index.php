@@ -111,13 +111,15 @@ try {
   ob_start();
   include sprintf($rootPath.'/src/pages/%s.php', $_route);
   $response = new Response(ob_get_clean(), 200);
+  $response->send();
 } catch (Exception\ResourceNotFoundException $exception) {
   $app->getLogger()->error($exception->getMessage());
   $template = $app->getTwig()->render('errors\404.html.twig', ['path' => $request->getPathInfo()]);
   $response = new Response($template, 404);
+  $response->send();
 } catch (\Exception $exception) {
   $app->getLogger()->error($exception->getMessage());
   $template = $app->getTwig()->render('errors\500.html.twig', ['path' => $request->getPathInfo(), 'message' => $exception->getMessage()]);
   $response = new Response($template, 500);
+  $response->send();
 }
-$response->send();
