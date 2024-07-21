@@ -103,6 +103,8 @@ if ($request->server->has('LAST_FM_API_KEY')) {
 $app->setTwigGlobal('lastfm', $lastfm);
 
 // run the app
+$request = $app->getCurrentRequest();
+$server = $request->server;
 try {
   $rootPath = Bootstrap::getRootPath();
   $request = $app->getCurrentRequest();
@@ -113,12 +115,12 @@ try {
   $response = new Response(ob_get_clean(), 200);
   $response->send();
 } catch (Exception\ResourceNotFoundException $exception) {
-  $app->getLogger()->error($exception->getMessage());
+  $app->getLogger()->error($exception->getMessage(), ['path' => $request->getPathInfo(), 'code' => 404, 'method' => $request->getMethod(), 'user_agent' => $request->headers->get('User-Agent'), 'ip' => $request->getClientIp()]);
   $template = $app->getTwig()->render('errors\404.html.twig', ['path' => $request->getPathInfo()]);
   $response = new Response($template, 404);
   $response->send();
 } catch (\Exception $exception) {
-  $app->getLogger()->error($exception->getMessage());
+  $app->getLogger()->error($exception->getMessage(), ['path' => $request->getPathInfo(), 'code' => 404, 'method' => $request->getMethod(), 'user_agent' => $request->headers->get('User-Agent'), 'ip' => $request->getClientIp()]);
   $template = $app->getTwig()->render('errors\500.html.twig', ['path' => $request->getPathInfo(), 'message' => $exception->getMessage()]);
   $response = new Response($template, 500);
   $response->send();
