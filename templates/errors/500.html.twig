@@ -7,5 +7,8 @@
 {% block main_content %}
   <h1>oops :(</h1>
   <p>Something is broken.</p>
+  {% if message is defined and message is not empty %}
+    <p>{{ message }}</p>
+  {% endif %}
   <p>Why not go back to the <a href="{{ path('homepage') }}">homepage</a>?</p>
 {% endblock %}
