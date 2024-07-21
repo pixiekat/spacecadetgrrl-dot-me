@@ -94,6 +94,7 @@ if ($request->server->has('LAST_FM_API_KEY')) {
     }
   }
   catch (Barryvanveen\Lastfm\Exceptions\ResponseException $exception) {
+    $app->getLogger()->error($exception->getMessage());
     $lastfm['error'] = $exception->getMessage();
   }
 }
