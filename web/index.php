@@ -36,21 +36,23 @@ if ($request->server->has('LAST_FM_API_KEY')) {
       $cache_beta = (float) $request->server->get('CACHE_DEFAULT_BETA');
     }
     $lastfmApi = new Lastfm(new Client(), $api_key);
-    $lastfm = $app_cache->get('lastfm__account', function (ItemInterface $item) use ($lastfm, $lastfmApi, $lastfmUsername): ?array {
+    $lastfm = $app_cache->get('lastfm__account', function (ItemInterface $item) use ($app, $lastfm, $lastfmApi, $lastfmUsername): ?array {
+      $app->getLogger()->debug('LastFM account cache miss: refreshing from LastFm API');
       $expiresAt = (new \DateTime())->setTimeZone(new \DateTimeZone('America/New_York'))->setTimestamp(strtotime('+1 day'));
-        $item->tag(['lastfm', 'api']);
+      $item->tag(['lastfm', 'api']);
 
-        try {
-          $lastfm['account'] = $lastfmApi->userInfo($lastfmUsername)->get();
-        }
-        catch (Barryvanveen\Lastfm\Exceptions\ResponseException $exception) {
-          $item->expiresAt(time());
-        }
-        return $lastfm;
+      try {
+        $lastfm['account'] = $lastfmApi->userInfo($lastfmUsername)->get();
+      }
+      catch (Barryvanveen\Lastfm\Exceptions\ResponseException $exception) {
+        $item->expiresAt(time());
+      }
+      return $lastfm;
     }, $cache_beta);
     
-    $tracks = $app_cache->get('lastfm__tracks', function (ItemInterface $item) use ($lastfmApi, $lastfmUsername): ?array {
+    $tracks = $app_cache->get('lastfm__tracks', function (ItemInterface $item) use ($app, $lastfmApi, $lastfmUsername): ?array {
       $expiresAt = (new \DateTime())->setTimeZone(new \DateTimeZone('America/New_York'))->setTimestamp(strtotime('+30 seconds'));
+      $app->getLogger()->debug('LastFM tracks cache miss: refreshing from LastFm API');
       $item->expiresAt($expiresAt);
       $item->tag(['lastfm', 'api']);
       try {
