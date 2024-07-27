@@ -135,3 +135,15 @@ h1, h2, h3, h4, h5, h6 {
 .madewith--tools span:last-child::after {
   content: ".";
 }
+
+.book--cover img {
+  max-height: 200px;
+}
+.book--info--title, .book--info--started, .book--info--finished {
+  font-size: .8rem;
+}
+
+.storygraph--icon {
+  height: 40px;
+  width: 25px;
+}
