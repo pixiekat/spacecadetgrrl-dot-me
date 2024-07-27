@@ -1,24 +1,34 @@
 body {
-  background-color: #FA96B2;
+  background-color: var(--theme-background-color); /*#FA96B2;*/
   color: #8F4F82;
   font-family: var(--base-font);
   font-size: var(--base-font-size);
+  font-weight: var(--base-font-weight);
 }
 
 a {
-  color: #99F2A8;
+  color: var(--theme-link-color); /*#99F2A8;*/
+  font-size: var(--base-font-size);
   text-decoration: none;
 }
 a:hover:not(.no-hover) {
-  background-color: #000000;
-  color: #99F2A8;
+  color: var(--theme-link-hover-color);
   text-decoration: line-through;
+}
+
+.sidebar p, .sidebar a {
+  font-size: 1rem;
 }
 
 ul.socialmedia {
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
+
+ul.socialmedia a {
+  font-size: 1.5rem;
+  margin-right: 1rem;
 }
 
 ul.list--about-me {
@@ -92,13 +102,14 @@ ul.list--nowplaying li:not(:last-child) {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'VT323', monospace;
+  font-family: var(--font-family-tangerine);
+  font-weight: 700;
   margin: 0;
 }
 
 .signature {
-  font-family: 'Give You Glory', cursive;
-  font-size: 2rem;
+  font-family: var(--font-family-zeyada);
+  font-size: 4.5rem;
   margin: 50px 0 30px;
 }
 
