@@ -5,13 +5,31 @@
 {% endblock %}
 
 {% block main_content %}
-  <h1>domain info...</h1>
-  <h2>basic info</h2>
-  <p>the main tools used for this site are:</p>
-  <ul>
-    <li><a href="https://chrome.google.com" target="_blank">google chrome</a>, for actually viewing it</li>
-    <li><a href="https://code.visualstudio.com" target="_blank">vscode insiders</a>, for making it</li>
-    <li><a href="https://music.youtube.com" target="_blank">youtube music</a>, for listening to music while making it</li>
-    <li><a href="https://github.com/microsoft/terminal" target="_blank">windows terminal</a>, to push code to the server and also to manage it</li>
-  </ul>
+  <header>
+    <h1 class="page--title">...//:domain info</h1>
+  </header>
+
+  <article>
+    <section class="">
+      <header>
+        <h2 class="page--title">basic info</h2>
+        <p>just some facts and basic info about this lil' ol' site.</p>
+      </header>
+
+      <blockquote>
+        <p>
+          <em>a person who tends to space out often. He or she does not respond when directly spoken to. The space cadet is not necessarily a person of low intelligence or a heavy drug user, but rather one who is so easily lost in reverie that he or she loses all awareness of the surrounding physical world.</em>
+        </p>
+      </blockquote>
+
+      <p>why spacecadetgrrl.me? i picked this domain because i loved the name and i've never had a dot me but it fits. i have a couple of other domain names, but this one was my favourite so i decided to make it my main domain. i registered the domain with amazon route 53 in 2024 and host it with ubuntu linux on aws. i use apache as my web server and i use php and twig for my templating engine. i use vscode insiders for my code editor and i use git for version control. i use windows terminal to push my code to the server and manage it. i use google chrome to view my site and i use youtube music to listen to music while i'm making it.</p>
+
+      <ul>
+        <li><a href="https://chrome.google.com" target="_blank">google chrome</a>, for actually viewing it</li>
+        <li><a href="https://code.visualstudio.com" target="_blank">vscode insiders</a>, for making it</li>
+        <li><a href="https://music.youtube.com" target="_blank">youtube music</a>, for listening to music while making it</li>
+        <li><a href="https://github.com/microsoft/terminal" target="_blank">windows terminal</a>, to push code to the server and also to manage it</li>
+      </ul>
+    </section>
+  </article>
 {% endblock %}
