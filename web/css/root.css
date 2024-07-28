@@ -28,11 +28,12 @@
   --theme-link-hover-color: var(--palette-just-avalanche-rock);
 }
 
+/*
 @font-face {
   font-family: NotoColorEmoji;
   font-weight: 400;
   src: url('../fonts/NotoColorEmoji.ttf');
-}
+}*/
 @font-face {
   font-family: KalniaGlaze;
   font-weight: 400;
