@@ -16,7 +16,7 @@ a:hover:not(.no-hover) {
   text-decoration: line-through;
 }
 
-.sidebar p, .sidebar a {
+.region--sidebar p, .region--sidebar a {
   font-size: 1rem;
 }
 
@@ -202,4 +202,8 @@ blockquote:before {
 }
 blockquote p {
   display: inline;
+}
+
+.section--title {
+  font-family: var(--font-family-chelsea-market-open);
 }

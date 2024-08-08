@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200;300&display=swap');
+
 :root {
   --font-family-vt323: 'VT323', monospace;
   --font-family-monterrat: 'Montserrat', sans-serif;
@@ -6,6 +8,8 @@
   --font-family-tangerine: 'Tangerine', cursive;
   --font-family-zeyada: 'Zeyada', cursive;
   --font-family-give-you-glory: 'Give You Glory', cursive;
+  --font-family-kanit: 'Kanit', sans-serif;
+  --font-family-chelsea-market-open: 'chelsea-market-open', cursive;
   --font-family-monospace: var(--font-family-vt323);
 
   --palette-all-the-pretty-girls: rgb(241,216,189);
@@ -14,6 +18,12 @@
   --palette-just-Hemphasis: rgb(215,43,39);
   --palette-BCB77B: rgb(188,183,123);
   
+  --palette-suicidegirls: rgb(236,44,145);
+  --palette-emogirl: rgb(222,129,171);
+  --palette-tattooedgirl: rgb(218,129,171);
+  --palette-black: rgb(0,0,0);
+  --palette-woolwhite: rgb(232,232,232);
+
 
   --font-family-serif: NotoColorEmoji, var(--font-family-radley), Georgia, Cambria, "Times New Roman", Times, serif;
   --font-family-sans-serif: NotoColorEmoji,-apple-system,BlinkMacSystemFont,var(--font-family-monterrat),"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
@@ -74,4 +84,9 @@
   font-style: italic;
   font-weight: 400;
   src: url('../fonts/Radley-Italic.ttf');
+}
+.font-chelsea-market-open {
+  font-family: var(--font-family-chelsea-market-open);
+  font-weight: 400;
+  font-style: normal;
 }

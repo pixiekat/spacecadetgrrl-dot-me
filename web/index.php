@@ -45,7 +45,8 @@ if ($request->server->has('LAST_FM_API_KEY')) {
         $lastfm['account'] = $lastfmApi->userInfo($lastfmUsername)->get();
       }
       catch (Barryvanveen\Lastfm\Exceptions\ResponseException $exception) {
-        $item->expiresAt(time());
+        $app->getLogger()->error($exception->getMessage());
+        $item->expiresAt((new \DateTime())->setTimeZone(new \DateTimeZone('America/New_York'))->setTimestamp(strtotime('now')));
       }
       return $lastfm;
     }, $cache_beta);
@@ -59,9 +60,10 @@ if ($request->server->has('LAST_FM_API_KEY')) {
         $tracks = $lastfmApi->userRecentTracks('cupcakezealot')->limit(8)->get();
       }
       catch (Barryvanveen\Lastfm\Exceptions\ResponseException $exception) {
-        $item->expiresAt(time());
+        $app->getLogger()->error($exception->getMessage());
+        $item->expiresAt((new \DateTime())->setTimeZone(new \DateTimeZone('America/New_York'))->setTimestamp(strtotime('now')));
       }
-      return $tracks;
+      return $tracks ?? [];
     }, $cache_beta);
 
     foreach ($tracks as $track) {

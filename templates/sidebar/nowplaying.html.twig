@@ -1,7 +1,7 @@
 {% if lastfm.current_track is defined and lastfm.current_track is not empty %}
   {% set current_track = lastfm.current_track %}
   <article>
-    <h1 class="title">currently listening</h1>
+    <h2 class="title">currently listening</h2>
     <ul class="no-bullets no-indent list--nowplaying">
       <li><a href="{{ current_track.song_url }}" target="_blank">{{ current_track.song }}</a> by {{ current_track.artist }}</li>
     </ul>
@@ -10,7 +10,7 @@
 
 {% if lastfm.lastplayed is defined and lastfm.lastplayed is not empty %}
   <article>
-    <h1 class="title">last played</h1>
+    <h2 class="title">last played</h2>
     <ul class="no-bullets no-indent list--nowplaying">
       {% for track in lastfm.lastplayed %}
         {% if track.song != lastfm.current_track.song %}
